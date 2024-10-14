@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        p {
+            margin-top: 0.3em;
+            margin-bottom: 0.3em;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        article {
+            max-width: 800px;
+            max-width: 800px;
+            padding: 15px 35px;
+            background-color: beige;
+            margin: 20px 10px;
+        }
+
+        .data {
+            display: flex;
+            justify-content: end;
+            gap: 20px;
+            margin-top: 50px;
+            background-color: burlywood;
+            padding: 5px;
+        }
+
+        .trans {
+            opacity: 40%;
+        }
+    </style>
+
+    <title>notas</title>
+
+</head>
+
+<body>
+    <div id="articles-container"></div>
+
+    <script>
+        async function loadArticles() {
+            // Cambia esto por la lista de tus archivos en la carpeta 'articles'
+            const articles = [
+                'articles/article1.html',
+                'articles/article2.html',
+                'articles/article3.html',
+                // Agrega más archivos aquí a medida que los crees
+            ];
+
+            const container = document.getElementById('articles-container');
+
+            for (const article of articles) {
+                const response = await fetch(article);
+                const articleHTML = await response.text();
+                const div = document.createElement('div');
+                div.innerHTML = articleHTML; // Inserta el contenido del artículo
+                container.appendChild(div);
+            }
+        }
+
+        loadArticles();
+    </script>
+    
+</body>
+
+</html>
