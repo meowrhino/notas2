@@ -23,6 +23,14 @@
             padding: 15px 35px;
             background-color: beige;
             margin: 20px 10px;
+            transition: opacity 0.5s ease;
+        }
+
+        article.hidden {
+            opacity: 0;
+            pointer-events: none;
+            height: 0;
+            overflow: hidden;
         }
 
         .data {
@@ -58,6 +66,34 @@
         .menu-item.inactive {
             font-weight: normal;
         }
+
+        .main {
+            background-color: #FF6F61; /* Red post-it */
+        }
+
+        .diario {
+            background-color: #FFD700; /* Yellow post-it */
+        }
+
+        .otro {
+            background-color: #4CAF50; /* Green post-it */
+        }
+
+        .misc {
+            background-color: #00BFFF; /* Blue post-it */
+        }
+
+        .idea {
+            background-color: #9370DB; /* Purple post-it */
+        }
+
+        .rtf {
+            background-color: #FFA07A; /* Orange post-it */
+        }
+
+        .gris {
+            background-color: #D3D3D3; /* Gray for unidentified types */
+        }
     </style>
 
     <title>notas</title>
@@ -71,59 +107,58 @@
     <script>
         async function loadArticles() {
             const articles = [
-
- 'articles/2024_10_29_12_20.html',
- 'articles/2024_10_26_10_34.html',
- 'articles/2024_10_26_10_34.html',
- 'articles/2024_10_24_20_59.html',
- 'articles/2024_10_24_19_22.html',
- 'articles/2024_10_23_16_13.html',
- 'articles/2024_10_21_10_38.html',
- 'articles/2024_10_20_22_39.html',
- 'articles/2024_10_20_20_56.html',
- 'articles/2024_10_20_20_53.html',
- 'articles/2024_10_19_12_01.html',
- 'articles/2024_10_19_11_40.html',
- 'articles/2024_10_19_11_25.html',
- 'articles/2024_10_19_11_21.html',
- 'articles/2024_10_19_10_57.html',
- 'articles/2024_10_19_10_56.html',
- 'articles/2024_10_19_10_40.html',
- 'articles/2024_10_19_10_36.html',
- 'articles/2024_10_19_10_35.html',
- 'articles/2024_10_19_10_10.html',
- 'articles/2024_10_19_09_55.html',
- 'articles/2024_10_19_09_53.html',
- 'articles/2024_10_17_22_45.html',
- 'articles/2024_10_17_22_21.html',
- 'articles/2024_10_17_21_16.html',
- 'articles/2024_10_17_19_43.html',
- 'articles/2024_10_17_19_36.html',
- 'articles/2024_10_17_19_11.html',
- 'articles/2024_10_17_18_50.html',
- 'articles/2024_10_17_18_29.html',
- 'articles/2024_10_17_18_16.html',
- 'articles/2024_10_17_17_59.html',
- 'articles/2024_10_15_22_27.html',
- 'articles/2024_10_15_21_30.html',
- 'articles/2024_10_15_18_30.html',
- 'articles/2024_10_15_17_00.html',
- 'articles/2024_10_14_14_50.html',
- 'articles/2024_10_13_09_23.html',
- 'articles/2024_10_13_01_17.html',
- 'articles/2024_10_13_01_16.html',
- 'articles/2024_10_13_01_15.html',
- 'articles/2024_10_13_01_12.html',
- 'articles/2024_10_11_17_54.html',
- 'articles/2024_10_11_17_24.html',
- 'articles/2024_10_08_19_48.html',
- 'articles/2024_10_08_19_37.html',
- 'articles/2024_10_06_22_29.html',
- 'articles/2024_10_05_19_24.html',
- 'articles/2024_10_02_20_30.html',
- 'articles/2024_10_02_20_04.html',
- 'articles/2024_10_02_19_38.html',
- 'articles/2024_10_02_19_31.html'
+                'articles/2024_10_29_12_20.html',
+                'articles/2024_10_26_10_34.html',
+                'articles/2024_10_26_10_34.html',
+                'articles/2024_10_24_20_59.html',
+                'articles/2024_10_24_19_22.html',
+                'articles/2024_10_23_16_13.html',
+                'articles/2024_10_21_10_38.html',
+                'articles/2024_10_20_22_39.html',
+                'articles/2024_10_20_20_56.html',
+                'articles/2024_10_20_20_53.html',
+                'articles/2024_10_19_12_01.html',
+                'articles/2024_10_19_11_40.html',
+                'articles/2024_10_19_11_25.html',
+                'articles/2024_10_19_11_21.html',
+                'articles/2024_10_19_10_57.html',
+                'articles/2024_10_19_10_56.html',
+                'articles/2024_10_19_10_40.html',
+                'articles/2024_10_19_10_36.html',
+                'articles/2024_10_19_10_35.html',
+                'articles/2024_10_19_10_10.html',
+                'articles/2024_10_19_09_55.html',
+                'articles/2024_10_19_09_53.html',
+                'articles/2024_10_17_22_45.html',
+                'articles/2024_10_17_22_21.html',
+                'articles/2024_10_17_21_16.html',
+                'articles/2024_10_17_19_43.html',
+                'articles/2024_10_17_19_36.html',
+                'articles/2024_10_17_19_11.html',
+                'articles/2024_10_17_18_50.html',
+                'articles/2024_10_17_18_29.html',
+                'articles/2024_10_17_18_16.html',
+                'articles/2024_10_17_17_59.html',
+                'articles/2024_10_15_22_27.html',
+                'articles/2024_10_15_21_30.html',
+                'articles/2024_10_15_18_30.html',
+                'articles/2024_10_15_17_00.html',
+                'articles/2024_10_14_14_50.html',
+                'articles/2024_10_13_09_23.html',
+                'articles/2024_10_13_01_17.html',
+                'articles/2024_10_13_01_16.html',
+                'articles/2024_10_13_01_15.html',
+                'articles/2024_10_13_01_12.html',
+                'articles/2024_10_11_17_54.html',
+                'articles/2024_10_11_17_24.html',
+                'articles/2024_10_08_19_48.html',
+                'articles/2024_10_08_19_37.html',
+                'articles/2024_10_06_22_29.html',
+                'articles/2024_10_05_19_24.html',
+                'articles/2024_10_02_20_30.html',
+                'articles/2024_10_02_20_04.html',
+                'articles/2024_10_02_19_38.html',
+                'articles/2024_10_02_19_31.html'
                 // Agrega más archivos aquí a medida que los crees
             ];
 
@@ -142,6 +177,13 @@
                     if (type) {
                         types.add(type);
                         articleElement.dataset.type = type;
+
+                        // Assign a background color based on type
+                        if (['diario', 'misc', 'main', 'rtf', 'idea', 'otro'].includes(type)) {
+                            articleElement.classList.add(type);
+                        } else {
+                            articleElement.classList.add('gris');
+                        }
                     }
                     container.appendChild(articleElement);
                 }
@@ -167,7 +209,11 @@
             const isActive = !menuItem.classList.contains('inactive');
 
             articles.forEach(article => {
-                article.style.display = isActive ? 'none' : 'block';
+                if (isActive) {
+                    article.classList.add('hidden');
+                } else {
+                    article.classList.remove('hidden');
+                }
             });
 
             menuItem.classList.toggle('inactive');
