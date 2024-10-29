@@ -68,27 +68,39 @@
         }
 
         .main {
-            background-color: #FF6F61; /* Red post-it */
+            background-color: #F4A89D; /* Soft red - similar to paper */
         }
 
         .diario {
-            background-color: #FFD700; /* Yellow post-it */
+            background-color: #F5DEB3; /* Light wheat - soft yellow */
         }
 
         .otro {
-            background-color: #4CAF50; /* Green post-it */
+            background-color: #A2D5A5; /* Soft green - tranquil */
         }
 
         .misc {
-            background-color: #00BFFF; /* Blue post-it */
+            background-color: #A6D7E7; /* Soft blue - similar to paper */
         }
 
         .idea {
-            background-color: #9370DB; /* Purple post-it */
+            background-color: #C3B9E4; /* Soft purple - calming */
         }
 
         .rtf {
-            background-color: #FFA07A; /* Orange post-it */
+            background-color: #FFD1A3; /* Soft orange - subtle */
+        }
+
+        .noDiario {
+            background-color: #E8E8E8; /* Soft gray - like paper */
+        }
+
+        .somni {
+            background-color: #FFEFD5; /* Pale peach - soft dreamlike */
+        }
+
+        .escrito {
+            background-color: #F0E68C; /* Khaki - paper-like yellow */
         }
 
         .gris {
@@ -179,7 +191,7 @@
                         articleElement.dataset.type = type;
 
                         // Assign a background color based on type
-                        if (['diario', 'misc', 'main', 'rtf', 'idea', 'otro'].includes(type)) {
+                        if (['diario', 'misc', 'main', 'rtf', 'idea', 'otro', 'noDiario', 'somni', 'escrito'].includes(type)) {
                             articleElement.classList.add(type);
                         } else {
                             articleElement.classList.add('gris');
