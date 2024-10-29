@@ -20,7 +20,6 @@
 
         article {
             max-width: 800px;
-            max-width: 800px;
             padding: 15px 35px;
             background-color: beige;
             margin: 20px 10px;
@@ -38,6 +37,27 @@
         .trans {
             opacity: 40%;
         }
+
+        .menu {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: white;
+            border: 1px solid black;
+            padding: 10px;
+            z-index: 100;
+        }
+
+        .menu-item {
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .menu-item.inactive {
+            font-weight: normal;
+        }
     </style>
 
     <title>notas</title>
@@ -45,77 +65,69 @@
 </head>
 
 <body>
+    <div id="menu" class="menu"></div>
     <div id="articles-container"></div>
 
     <script>
         async function loadArticles() {
-            // Cambia esto por la lista de tus archivos en la carpeta 'articles'
             const articles = [
-
                 'articles/2024_10_29_12_20.html',
                 'articles/2024_10_26_10_34.html',
-                 'articles/2024_10_26_10_34.html',
-                 'articles/2024_10_24_20_59.html',
-                 'articles/2024_10_24_19_22.html',
- 'articles/2024_10_23_16_13.html',
- 'articles/2024_10_21_10_38.html',
- 'articles/2024_10_20_22_39.html',
- 'articles/2024_10_20_20_56.html',
- 'articles/2024_10_20_20_53.html',
- 'articles/2024_10_19_12_01.html',
- 'articles/2024_10_19_11_40.html',
- 'articles/2024_10_19_11_25.html',
- 'articles/2024_10_19_11_21.html',
- 'articles/2024_10_19_10_57.html',
- 'articles/2024_10_19_10_56.html',
- 'articles/2024_10_19_10_40.html',
- 'articles/2024_10_19_10_36.html',
- 'articles/2024_10_19_10_35.html',
- 'articles/2024_10_19_10_10.html',
- 'articles/2024_10_19_09_55.html',
- 'articles/2024_10_19_09_53.html',
- 'articles/2024_10_17_22_45.html',
- 'articles/2024_10_17_22_21.html',
- 'articles/2024_10_17_21_16.html',
- 'articles/2024_10_17_19_43.html',
- 'articles/2024_10_17_19_36.html',
- 'articles/2024_10_17_19_11.html',
- 'articles/2024_10_17_18_50.html',
- 'articles/2024_10_17_18_29.html',
- 'articles/2024_10_17_18_16.html',
- 'articles/2024_10_17_17_59.html',
- 'articles/2024_10_15_22_27.html',
- 'articles/2024_10_15_21_30.html',
- 'articles/2024_10_15_18_30.html',
- 'articles/2024_10_15_17_00.html',
- 'articles/2024_10_14_14_50.html',
- 'articles/2024_10_13_09_23.html',
- 'articles/2024_10_13_01_17.html',
- 'articles/2024_10_13_01_16.html',
- 'articles/2024_10_13_01_15.html',
- 'articles/2024_10_13_01_12.html',
- 'articles/2024_10_11_17_54.html',
- 'articles/2024_10_11_17_24.html',
- 'articles/2024_10_08_19_48.html',
- 'articles/2024_10_08_19_37.html',
- 'articles/2024_10_06_22_29.html',
- 'articles/2024_10_05_19_24.html',
- 'articles/2024_10_02_20_30.html',
- 'articles/2024_10_02_20_04.html',
- 'articles/2024_10_02_19_38.html',
- 'articles/2024_10_02_19_31.html'
+                'articles/2024_10_24_20_59.html',
+                'articles/2024_10_24_19_22.html',
+                'articles/2024_10_23_16_13.html',
+                'articles/2024_10_21_10_38.html',
+                'articles/2024_10_20_22_39.html',
+                'articles/2024_10_20_20_56.html',
+                'articles/2024_10_20_20_53.html',
+                'articles/2024_10_19_12_01.html'
                 // Agrega más archivos aquí a medida que los crees
             ];
 
             const container = document.getElementById('articles-container');
+            const types = new Set();
 
             for (const article of articles) {
                 const response = await fetch(article);
                 const articleHTML = await response.text();
                 const div = document.createElement('div');
-                div.innerHTML = articleHTML; // Inserta el contenido del artículo
-                container.appendChild(div);
+                div.innerHTML = articleHTML;
+                const articleElement = div.querySelector('article');
+
+                if (articleElement) {
+                    const type = articleElement.classList[0];
+                    if (type) {
+                        types.add(type);
+                        articleElement.dataset.type = type;
+                    }
+                    container.appendChild(articleElement);
+                }
             }
+
+            generateMenu(types);
+        }
+
+        function generateMenu(types) {
+            const menu = document.getElementById('menu');
+
+            types.forEach(type => {
+                const menuItem = document.createElement('div');
+                menuItem.classList.add('menu-item');
+                menuItem.textContent = type;
+                menuItem.addEventListener('click', () => toggleTypeVisibility(type, menuItem));
+                menu.appendChild(menuItem);
+            });
+        }
+
+        function toggleTypeVisibility(type, menuItem) {
+            const articles = document.querySelectorAll(`article[data-type="${type}"]`);
+            const isActive = !menuItem.classList.contains('inactive');
+
+            articles.forEach(article => {
+                article.style.display = isActive ? 'none' : 'block';
+            });
+
+            menuItem.classList.toggle('inactive');
         }
 
         loadArticles();
