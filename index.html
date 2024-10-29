@@ -18,14 +18,15 @@
             text-decoration: none;
         }
 
-        article {
-            max-width: 800px;
-            padding: 15px 35px;
-            background-color: beige;
-            margin: 20px 10px;
-            transition: opacity 0.5s ease;
-            z-index: 1;
-        }
+article {
+    max-width: 800px;
+    padding: 15px 35px;
+    background-color: beige;
+    margin: 20px 10px;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+    pointer-events: none; /* Permite que los clics pasen a través */
+}
 
         article.hidden {
             opacity: 0;
@@ -86,14 +87,17 @@
             opacity: 40%;
         }
 
+
+
 .menu {
     position: fixed;
     top: 10px;
     right: 10px;
     padding: 10px;
-    z-index: -1; /* Cambia a un valor negativo */
-    pointer-events: all; /* Asegura que sea clicable */
+    z-index: 0; /* Mantén el menú detrás de los artículos */
+    pointer-events: auto; /* Asegura que el menú sea clicable */
 }
+
 
 
         .menu-item {
