@@ -38,8 +38,47 @@
             justify-content: end;
             gap: 20px;
             margin-top: 50px;
-            background-color: burlywood;
             padding: 5px;
+        }
+
+        .data.diario {
+            background-color: #D4B480; /* Darker wheat for diario */
+        }
+
+        .data.main {
+            background-color: #D48472; /* Darker soft red for main */
+        }
+
+        .data.otro {
+            background-color: #85B386; /* Darker soft green for otro */
+        }
+
+        .data.misc {
+            background-color: #82AFC4; /* Darker soft blue for misc */
+        }
+
+        .data.idea {
+            background-color: #A194C7; /* Darker soft purple for idea */
+        }
+
+        .data.rtf {
+            background-color: #E6B084; /* Darker soft orange for rtf */
+        }
+
+        .data.noDiario {
+            background-color: #C0C0C0; /* Darker gray for noDiario */
+        }
+
+        .data.somni {
+            background-color: #E6D5B3; /* Darker pale peach for somni */
+        }
+
+        .data.escrito {
+            background-color: #D2C278; /* Darker khaki for escrito */
+        }
+
+        .data.gris {
+            background-color: #A9A9A9; /* Darker gray for unidentified types */
         }
 
         .trans {
@@ -50,10 +89,8 @@
             position: fixed;
             top: 10px;
             right: 10px;
-            background-color: white;
-            border: 1px solid black;
             padding: 10px;
-            z-index: 100;
+            z-index: -1;
         }
 
         .menu-item {
@@ -61,6 +98,10 @@
             font-weight: bold;
             margin-bottom: 5px;
             display: block;
+        }
+
+        .menu-item:hover {
+            text-decoration: underline;
         }
 
         .menu-item.inactive {
@@ -193,8 +234,16 @@
                         // Assign a background color based on type
                         if (['diario', 'misc', 'main', 'rtf', 'idea', 'otro', 'noDiario', 'somni', 'escrito'].includes(type)) {
                             articleElement.classList.add(type);
+                            const dataElement = articleElement.querySelector('.data');
+                            if (dataElement) {
+                                dataElement.classList.add(type);
+                            }
                         } else {
                             articleElement.classList.add('gris');
+                            const dataElement = articleElement.querySelector('.data');
+                            if (dataElement) {
+                                dataElement.classList.add('gris');
+                            }
                         }
                     }
                     container.appendChild(articleElement);
